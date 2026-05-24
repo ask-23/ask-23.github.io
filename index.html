@@ -108,10 +108,15 @@
       line-height: 1.5;
     }
 
-    .intro {
+    .intro,
+    .work p {
       max-width: 68ch;
-      margin: 0 0 34px;
+      margin: 0 0 14px;
       color: var(--muted);
+    }
+
+    .intro {
+      margin-bottom: 34px;
     }
 
     .section-heading {
@@ -160,6 +165,20 @@
       line-height: 1.25;
       font-weight: 680;
       letter-spacing: 0;
+    }
+
+    .work p:last-child {
+      margin-bottom: 0;
+    }
+
+    .essay-list {
+      margin: 14px 0 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .essay-list li {
+      margin-bottom: 8px;
     }
 
     .field {
@@ -284,88 +303,53 @@
     <header class="hero">
       <p class="eyebrow">AI Engineering Portfolio</p>
       <h1>AI engineering work</h1>
-      <p class="lede">Selected repos and notes on production AI delivery, evaluation, guardrails, and bounded agentic workflows.</p>
+      <p class="lede">Public artifacts from my AI delivery work — repos, a few essays, some small tools.</p>
     </header>
 
-    <p class="intro">A compact routing layer for readers who already have context from a profile, LinkedIn, or GitHub profile. The emphasis is on inspectable work: repositories, tests, examples, and concise architecture notes.</p>
+    <p class="intro">Not a complete inventory, and not the side-project fun stuff. The ones I'd actually want someone to read. It's mostly routing.</p>
 
     <section aria-labelledby="work-heading">
       <div class="section-heading">
-        <h2 id="work-heading">Relevant work</h2>
+        <h2 id="work-heading">Selected work</h2>
         <span class="meta">Public artifacts</span>
       </div>
 
       <div class="work-list">
         <article class="work">
           <h3>Composable Me</h3>
-          <div class="field">
-            <div class="label">What it is</div>
-            <p>A public repo for truth-constrained job-application generation from supplied source material.</p>
-          </div>
-          <div class="field">
-            <div class="label">Why it matters</div>
-            <p>Relevant because high-trust AI workflows need traceability, refusal paths, and human control when a claim is not supported.</p>
-          </div>
-          <div class="field">
-            <div class="label">Where to inspect</div>
-            <div class="links">
-              <a class="pill" href="https://github.com/ask-23/composable-me">github.com/ask-23/composable-me</a>
-            </div>
+          <p>A multi-agent, multi-LLM system that generates job applications from real source material and refuses to invent anything it can't trace back to a verifiable source. The idea is slightly unusual — use multiple nondeterministic models in role-played coordination to produce straight, truthful output. The most-developed piece in this set: a CLI, an audit report per run, and a test suite I actually run.</p>
+          <p>I built it because existing profile-generation tools optimize for fit at the cost of accuracy. In my testing, the problems ranged from poor editorial selection to literally incredible stories — credibility-wrecking fictions, that is. So I designed Composable Me as a truth-constrained system with a keep-me-honest layer of guards and gates on top.</p>
+          <div class="links">
+            <a class="pill" href="https://github.com/ask-23/composable-me">github.com/ask-23/composable-me</a>
           </div>
         </article>
 
         <article class="work">
           <h3>Architecture Notes</h3>
-          <div class="field">
-            <div class="label">What it is</div>
-            <p>Short notes on production AI systems, delivery governance, and the operating layer around model behavior.</p>
-          </div>
-          <div class="field">
-            <div class="label">Why it matters</div>
-            <p>Relevant because AI systems need evaluation, rollback, ownership, and incident-review paths after the demo works.</p>
-          </div>
-          <div class="field">
-            <div class="label">Where to inspect</div>
-            <div class="links">
-              <a class="pill" href="https://github.com/ask-23/architecture-notes">Repo</a>
-              <a class="pill" href="https://github.com/ask-23/architecture-notes/blob/main/essays/001-production-grade-ai.md">Production-grade AI note</a>
-            </div>
-          </div>
+          <p>Short essays on the operational middle of AI systems — the practical plumbing: evaluation, rollback, audit trails, ownership. Most writing in this space is either research-coded or marketing-coded, and either way a little opaque. I'm trying to be useful to engineers who got handed an LLM and a deadline.</p>
+          <p>Three so far:</p>
+          <ul class="essay-list">
+            <li><a href="https://github.com/ask-23/architecture-notes/blob/main/essays/001-production-grade-ai.md">001 — Production-grade AI</a></li>
+            <li><a href="https://github.com/ask-23/architecture-notes/blob/main/essays/002-judgment-as-code.md">002 — Judgment-as-code</a> — start here if you're thinking about using AI in your CI to maintain quality</li>
+            <li><a href="https://github.com/ask-23/architecture-notes/blob/main/essays/003-bounded-autonomy.md">003 — Bounded autonomy</a></li>
+          </ul>
         </article>
 
         <article class="work">
           <h3>AI Delivery Guards</h3>
-          <div class="field">
-            <div class="label">What it is</div>
-            <p>A small Go CLI for mechanical CI checks around AI-touched changes.</p>
-          </div>
-          <div class="field">
-            <div class="label">Why it matters</div>
-            <p>Relevant because production AI changes need evaluation coverage, rollback metadata, and observability before merge.</p>
-          </div>
-          <div class="field">
-            <div class="label">Where to inspect</div>
-            <div class="links">
-              <a class="pill" href="https://github.com/ask-23/ai-delivery-guards">github.com/ask-23/ai-delivery-guards</a>
-            </div>
+          <p>A small Go CLI (600ish lines). It scans for LLM call sites and fails CI when the surrounding evidence isn't there — eval coverage, rollback metadata, observability markers in the same file.</p>
+          <p>Substring matching. Not AST analysis. A determined developer can satisfy the checks superficially, which is fine — this isn't built for adversarial cases. It's for the more common situation where you're moving fast enough that on one service, the eval coverage slipped.</p>
+          <div class="links">
+            <a class="pill" href="https://github.com/ask-23/ai-delivery-guards">Repo →</a>
           </div>
         </article>
 
         <article class="work">
           <h3>Agentic Patterns</h3>
-          <div class="field">
-            <div class="label">What it is</div>
-            <p>A small repo of bounded agentic workflow examples, starting with research plus an eval gate.</p>
-          </div>
-          <div class="field">
-            <div class="label">Why it matters</div>
-            <p>Relevant because agent workflows need explicit pass/fail boundaries, escalation, and refusal behavior.</p>
-          </div>
-          <div class="field">
-            <div class="label">Where to inspect</div>
-            <div class="links">
-              <a class="pill" href="https://github.com/ask-23/agentic-patterns">github.com/ask-23/agentic-patterns</a>
-            </div>
+          <p>One pattern up so far: research-with-eval-gate. First of several — tool-use with retry, plan-act-observe with human escalation, and a multi-agent handoff example I keep starting and abandoning. I'm a huge believer in multi-agent implementations, even though I've struggled to find production use cases that aren't better served by more pedestrian patterns.</p>
+          <p>Agentic orchestration takes a few forms, and the valuable examples are usually defined by meaningful boundaries: where the workflow stops, where it has to escalate, where it should refuse. Most agent frameworks bury those decisions under abstractions, and I think the ecosystem is overbuilt for the problem it actually has, at least for now.</p>
+          <div class="links">
+            <a class="pill" href="https://github.com/ask-23/agentic-patterns">github.com/ask-23/agentic-patterns</a>
           </div>
         </article>
       </div>
@@ -373,7 +357,6 @@
 
     <section class="contact" aria-labelledby="contact-heading">
       <h2 id="contact-heading">Contact</h2>
-      <p>Identity and professional context are kept on the canonical profiles.</p>
       <div class="links">
         <a class="pill" href="https://github.com/ask-23">GitHub</a>
       </div>
