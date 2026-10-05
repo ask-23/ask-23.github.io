@@ -316,17 +316,11 @@
 
       <div class="work-list">
         <article class="work">
-          <h3>Composable Me</h3>
-          <p>A multi-agent, multi-LLM system that generates job applications from real source material and refuses to invent anything it can't trace back to a verifiable source. The idea is slightly unusual — use multiple nondeterministic models in role-played coordination to produce straight, truthful output. The most-developed piece in this set: a CLI, an audit report per run, and a test suite I actually run.</p>
-          <p>I built it because existing profile-generation tools optimize for fit at the cost of accuracy. In my testing, the problems ranged from poor editorial selection to literally incredible stories — credibility-wrecking fictions, that is. So I designed Composable Me as a truth-constrained system with a keep-me-honest layer of guards and gates on top.</p>
-          <div class="links">
-            <a class="pill" href="https://github.com/ask-23/composable-me">github.com/ask-23/composable-me</a>
-          </div>
-        </article>
-
-        <article class="work">
           <h3>Architecture Notes</h3>
           <p>Short essays on the operational middle of AI systems — the practical plumbing: evaluation, rollback, audit trails, ownership. Most writing in this space is either research-coded or marketing-coded, and either way a little opaque. I'm trying to be useful to engineers who got handed an LLM and a deadline.</p>
+          <div class="links">
+            <a class="pill" href="https://github.com/ask-23/architecture-notes">Repo →</a>
+          </div>
           <p>Three so far:</p>
           <ul class="essay-list">
             <li><a href="https://github.com/ask-23/architecture-notes/blob/main/essays/001-production-grade-ai.md">001 — Production-grade AI</a></li>
@@ -337,22 +331,23 @@
 
         <article class="work">
           <h3>AI Delivery Guards</h3>
-          <p>A small Go CLI (600ish lines). It scans for LLM call sites and fails CI when the surrounding evidence isn't there — eval coverage, rollback metadata, observability markers in the same file.</p>
+          <p>A small Go CLI. It scans for LLM call sites and fails CI when the surrounding evidence isn't there — an eval directory, rollback metadata in deployment manifests, and observability markers in each call-site file.</p>
           <p>Substring matching. Not AST analysis. A determined developer can satisfy the checks superficially, which is fine — this isn't built for adversarial cases. It's for the more common situation where you're moving fast enough that on one service, the eval coverage slipped.</p>
           <div class="links">
             <a class="pill" href="https://github.com/ask-23/ai-delivery-guards">Repo →</a>
           </div>
         </article>
-
-        <article class="work">
-          <h3>Agentic Patterns</h3>
-          <p>One pattern up so far: research-with-eval-gate. First of several — tool-use with retry, plan-act-observe with human escalation, and a multi-agent handoff example I keep starting and abandoning. I'm a huge believer in multi-agent implementations, even though I've struggled to find production use cases that aren't better served by more pedestrian patterns.</p>
-          <p>Agentic orchestration takes a few forms, and the valuable examples are usually defined by meaningful boundaries: where the workflow stops, where it has to escalate, where it should refuse. Most agent frameworks bury those decisions under abstractions, and I think the ecosystem is overbuilt for the problem it actually has, at least for now.</p>
-          <div class="links">
-            <a class="pill" href="https://github.com/ask-23/agentic-patterns">github.com/ask-23/agentic-patterns</a>
-          </div>
-        </article>
       </div>
+    </section>
+
+    <section class="contact" aria-labelledby="upcoming-heading">
+      <div class="section-heading">
+        <h2 id="upcoming-heading">Upcoming: Proofline</h2>
+        <span class="meta">Private · specification and build plan</span>
+      </div>
+      <p>The next main project asks one mechanical question: does this exact pull-request head satisfy the readiness contract accepted on its exact base commit?</p>
+      <p>The design binds checks and reviews to exact Git identities and returns <code>VERIFIED</code>, <code>BLOCKED</code>, or <code>UNKNOWN</code>. An agent's claim that the work is done isn't evidence that the contract passed.</p>
+      <p>The repository currently contains the specification and build plan, not a working tool. I'll link it here when the implementation is tested and ready to publish.</p>
     </section>
 
     <section class="contact" aria-labelledby="contact-heading">
